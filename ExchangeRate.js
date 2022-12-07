@@ -18,12 +18,10 @@ var requestOptions = {
 
 const getRateFromApi = () => {
   fetch("https://api.apilayer.com/exchangerates_data/latest?symbols={}&base=EUR}", requestOptions)
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((json) => {         
        console.log(json);
-       for (let i=0; i<json.count; i++) {
-        console.log(json.results[i].content);
-       }
+       setCurrency(json.currency)
     })
     .catch((error) => {
        console.error(error);
@@ -40,7 +38,7 @@ const getRateFromApi = () => {
 return (
   <View style={styles.container}>
       <Text>
-        amount = {currency}
+        {currency}
       </Text>
       
       <TextInput
