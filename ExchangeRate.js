@@ -1,9 +1,11 @@
-import { Text } from 'react-native';
+import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
 import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+
 export default function ExchangeRates() {
 
-    const [currency, setCurrency] = useState();
-    const [amount, setAmount] = useState();
+    const [currency, setCurrency] = useState("EUR");
+    const [amount, setAmount] = useState("$5");
     
 var myHeaders = new Headers();
 myHeaders.append("apikey", "bo27GO2pKVXkBJEsxQc56X3YyvjP41HD");
@@ -14,12 +16,66 @@ var requestOptions = {
   headers: myHeaders
 };
 
-fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=&base={base}", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+const getRateFromApi = () => {
+  fetch("https://api.apilayer.com/exchangerates_data/latest?symbols={}&base={EUR}", requestOptions)
+    .then((response) => response.json())
+    .then((json) => {         
+       console.log(json);
+       for (let i=0; i<json.count; i++) {
+        console.log(json.results[i].content);
+       }
+    })
+    .catch((error) => {
+       console.error(error);
+    });
+
+    
+  };
+
+// fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=&base={USD}", requestOptions)
+//   .then(response => response.text())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
 
 return (
-    <Text>hello</Text>
+  <View style={styles.container}>
+      <Text>
+        amount = {getRateFromApi}
+      </Text>
+      
+      <TextInput
+            style={{height: 40,
+            borderColor: 'gray',
+            borderWidth: 1}}
+            placeholder="Enter Starting Currency"
+            onChangeText={(newText) => {
+              setWord(newText);
+              
+            }}
+         
+          />
+          <TextInput
+            style={{height: 40,
+            borderColor: 'gray',
+            borderWidth: 1}}
+            placeholder="Enter Desired Currency"
+            onChangeText={(newText) => {
+              setDefinition(newText);
+              
+            }}
+        
+          />
+          <Button title="Get Your Rate" onPress={() => {
+            
+          }}/>
+    </View>
 );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

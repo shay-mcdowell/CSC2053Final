@@ -1,16 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import ExchangeRates from './ExchangeRate';
+import { NavigationContainer, TabRouter } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './Home';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <View style={styles.container}>
-      <Text>hey</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={Home}/>
+            <Stack.Screen name="ExchangeRates" component={ExchangeRates} />
+          </Stack.Navigator>
+          </NavigationContainer>
+      );
+    }
+    
+    
+    //<ExchangeRates/>
+  
 
 const styles = StyleSheet.create({
   container: {
@@ -20,8 +31,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-=======
-    <ExchangeRates/>
-);
-  }
->>>>>>> b6e94e000b186f1d68ab469433fd3d60a17dbe6b
+
+    
+
+  
+
