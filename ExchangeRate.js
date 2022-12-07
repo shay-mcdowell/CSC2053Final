@@ -17,8 +17,8 @@ var requestOptions = {
 };
 
 const getRateFromApi = () => {
-  fetch("https://api.apilayer.com/exchangerates_data/latest?symbols={}&base={EUR}", requestOptions)
-    .then((response) => response.json())
+  fetch("https://api.apilayer.com/exchangerates_data/latest?symbols={}&base=EUR}", requestOptions)
+    .then((response) => response.text())
     .then((json) => {         
        console.log(json);
        for (let i=0; i<json.count; i++) {
@@ -40,7 +40,7 @@ const getRateFromApi = () => {
 return (
   <View style={styles.container}>
       <Text>
-        amount = {getRateFromApi}
+        amount = {currency}
       </Text>
       
       <TextInput
@@ -49,7 +49,7 @@ return (
             borderWidth: 1}}
             placeholder="Enter Starting Currency"
             onChangeText={(newText) => {
-              setWord(newText);
+              setCurrency(newText);
               
             }}
          
@@ -60,7 +60,7 @@ return (
             borderWidth: 1}}
             placeholder="Enter Desired Currency"
             onChangeText={(newText) => {
-              setDefinition(newText);
+              setAmount(newText);
               
             }}
         
