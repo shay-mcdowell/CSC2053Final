@@ -5,7 +5,7 @@ export default function Home({ route, navigation }) {
     return (
         <ScrollView>
             <Text>Hi</Text>
-            <Button title="Get Your Rate" onPress={() => {
+            <Button title="Go to Exchange Rate" onPress={() => {
             navigation.navigate('ExchangeRates');
           }}/>
         </ScrollView>
